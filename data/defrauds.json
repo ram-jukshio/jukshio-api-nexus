@@ -1,0 +1,43 @@
+[
+    {
+      "title": "Defraud API",
+      "description": "Detects fraud in transactions or onboarding.",
+      "endpoint": "POST /v2/dfraud",
+      "source": "Defraud API Doc",
+      "curl": "curl --location 'https://manappuram-apis-stag.jukshio.com/v2/dfraud' \\\n--header 'Authorization: Bearer <TOKEN>' \\\n--form 'image=@\"/path/to/image.png\"' \\\n--form 'app_id=\"ttd_demo\"' \\\n--form 'referenceId=\"testing\"' \\\n--form 'app_type=\"A\"' \\\n--form 'txn_type=\"0\"' \\\n--form 'image_type=\"p\"'",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Input image"},
+        {"Param": "txn_type", "M/O": "M", "Description": "0 - search, 1 - add"},
+        {"Param": "image_type", "M/O": "M", "Description": "Type of image (e.g., 'p')"}
+      ],
+      "outputs": {
+        "match": true,
+        "is_fraud": true,
+        "error": "Onboarding not allowed: Duplicate Facial Image Found",
+        "statuscode": 200,
+        "status": "failure"
+      }
+    },
+    {
+      "title": "Group Photo Face Match API",
+      "description": "Matches selfie against a group photo.",
+      "endpoint": "POST /v1/face_match_slc",
+      "source": "Defraud API Doc [cite: 7]",
+      "curl": "curl --location 'https://apis-kyc-poc-stag.jukshio.com/v1/face_match_slc' \\\n--header 'Authorization: Basic <AUTH>' \\\n--form 'app_id=\"ttd_demo\"' \\\n--form 'referenceId=\"testing\"' \\\n--form 'document_image=@\"/path/selfie.png\"' \\\n--form 'face_image=@\"/path/group.png\"' \\\n--form 'image_type=\"p\"' \\\n--form 'match_doc=\"F2F\"'",
+      "inputs": [
+        {"Param": "document_image", "M/O": "M", "Description": "Selfie/Single face"},
+        {"Param": "face_image", "M/O": "M", "Description": "Group photo"},
+        {"Param": "match_doc", "M/O": "M", "Description": "Match type (e.g., F2F)"}
+      ],
+      "outputs": {
+        "result": {
+          "conf": 95,
+          "match": "yes",
+          "match-score": 81,
+          "to-be-reviewed": "no"
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    }
+]

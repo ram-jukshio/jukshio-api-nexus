@@ -1,0 +1,116 @@
+[
+    {
+      "title": "PAN NSDL Verification",
+      "description": "Verify PAN details via NSDL.",
+      "endpoint": "POST /v1/verify_pan_number",
+      "source": "Verification APIs Doc",
+      "curl": "curl --location '{url}/v1/verify_pan_number' \\\n--header 'Authorization: {Bearer Auth token}' \\\n--form 'app_id=\"\"' \\\n--form 'referenceId=\"\"' \\\n--form 'name=\"\"' \\\n--form 'father_name=\"\"' \\\n--form 'pan_number=\"\"' \\\n--form 'dob=\"\"'",
+      "inputs": [
+        {"Param": "pan_number", "M/O": "M", "Description": "10 char PAN"},
+        {"Param": "name", "M/O": "M", "Description": "Full Name"},
+        {"Param": "father_name", "M/O": "M", "Description": "Father's Name"},
+        {"Param": "dob", "M/O": "M", "Description": "Date of Birth"}
+      ],
+      "outputs": {
+        "result": {
+          "outputData": [
+            {
+              "pan": "ABCDE1234F",
+              "pan_status": "E",
+              "name": "Y",
+              "fathername": "",
+              "dob": "Y",
+              "seeding_status": "Y"
+            }
+          ]
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Passport Verification API",
+      "description": "Verify passport details via file number and DOB.",
+      "endpoint": "POST /v1/passport_verification",
+      "source": "Verification APIs Doc",
+      "curl": "curl --location '{url}/v1/passport_verification' \\\n--header 'Authorization: Bearer {auth token}' \\\n--form 'app_id=\"app_id\"' \\\n--form 'referenceId=\"123456\"' \\\n--form 'file_no=\"DLXXXXXXXXXXXXX\"' \\\n--form 'dob=\"01/01/2000\"'",
+      "inputs": [
+        {"Param": "file_no", "M/O": "M", "Description": "Passport File Number"},
+        {"Param": "dob", "M/O": "M", "Description": "Date of Birth"}
+      ],
+      "outputs": {
+        "data": {
+          "application_recieved_date": "01/01/2023",
+          "file_number": "DLXXXXXXXXXXXXX",
+          "passport_number": "RXXXXXXX",
+          "status": "Passport RXXXXXXX has been dispatched..."
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Voter Verification API (Epic Search)",
+      "description": "Verify voter eligibility using Epic Number.",
+      "endpoint": "POST /v1/epic_search",
+      "source": "Verification APIs Doc",
+      "curl": "curl --location '{url}/v1/epic_search' \\\n--header 'Authorization: Bearer {auth token}' \\\n--form 'app_id=\"app_id\"' \\\n--form 'referenceId=\"123456\"' \\\n--form 'epic_number=\"epic_number\"'",
+      "inputs": [
+        {"Param": "epic_number", "M/O": "M", "Description": "Voter ID / Epic Number"}
+      ],
+      "outputs": {
+        "data": {
+          "age": "31",
+          "gender": "Female",
+          "state": "Assam",
+          "assemblyConstituency": "ABHAYAPURI"
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Driving Licence Verification API",
+      "description": "Verify Driving License details.",
+      "endpoint": "POST /v1/dl_verification",
+      "source": "Verification APIs Doc",
+      "curl": "curl -X POST {url}/v1/dl_verification \\\n-H 'Authorization: Bearer {auth token}' \\\n-F app_id=\"app_id\" \\\n-F referenceId=\"123456\" \\\n-F dl_number=\"\" \\\n-F name=\"\" \\\n-F state=\"\" \\\n-F dob=\"\"",
+      "inputs": [
+        {"Param": "dl_number", "M/O": "M", "Description": "DL Number"},
+        {"Param": "dob", "M/O": "M", "Description": "Date of Birth"},
+        {"Param": "state", "M/O": "M", "Description": "State Name"}
+      ],
+      "outputs": {
+        "data": {
+          "validity": "29/05/2034",
+          "name": "THIVAN MOHAMED M",
+          "father_name": "MOHAIDEEN",
+          "status_code": 0
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Aadhaar Paperless Ekyc API",
+      "description": "Verify Aadhaar using offline ZIP file.",
+      "endpoint": "POST /v1/offline_aadhar_verify",
+      "source": "Verification APIs Doc",
+      "curl": "curl -X POST {url}/v1/offline_aadhar_verify \\\n-H 'Authorization: Bearer {auth token}' \\\n-F app_id=\"app_id\" \\\n-F referenceId=\"123456\" \\\n-F file=\"/home/Downloads/offlineaadhaar.zip\" \\\n-F name=\"Shiva Teja\" \\\n-F email=\"shivateja@gmail.com\" \\\n-F passcode=\"12345\" \\\n-F image_type=\"p\"",
+      "inputs": [
+        {"Param": "file", "M/O": "M", "Description": "UIDAI Zip File"},
+        {"Param": "passcode", "M/O": "M", "Description": "Zip File Password"},
+        {"Param": "mobile", "M/O": "O", "Description": "Mobile Number"}
+      ],
+      "outputs": {
+        "result": {
+          "masked_aadhar": "********1303",
+          "uid_data": {
+            "poi": {"name": "xxxxxxxx", "gender": "xxxxxxxx"}
+          }
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    }
+  ]

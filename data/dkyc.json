@@ -1,0 +1,180 @@
+[
+    {
+      "title": "Liveness API",
+      "description": "Determines if a customer image captured is live or a spoof.",
+      "endpoint": "POST /v1/check_liveness",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/check_liveness \\\n-H 'Authorization: Bearer <auth token>' \\\n-F image=@1stimage.jpg \\\n-F image2=@2ndimage.jpg \\\n-F app_id=app_id \\\n-F referenceId=123456 \\\n-F whiteBackground=1 \\\n-F eyesCheck=1 \\\n-F capture_type=0 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Original live image"},
+        {"Param": "app_id", "M/O": "M", "Description": "Application ID"},
+        {"Param": "referenceId", "M/O": "M", "Description": "User ID / ORN"},
+        {"Param": "capture_type", "M/O": "M", "Description": "0 - Customer, 1 - Agent"},
+        {"Param": "eyesCheck", "M/O": "O", "Description": "0 - Enable, 1 - Disable"},
+        {"Param": "whiteBackground", "M/O": "O", "Description": "0 - Enable, 1 - Disable"}
+      ],
+      "outputs": {
+        "checksum": "0adf39c99f...",
+        "result": {
+          "live": "yes",
+          "liveness-score": "92",
+          "to-be-reviewed": "no"
+        },
+        "status": "success",
+        "statusCode": "200"
+      }
+    },
+    {
+      "title": "Aadhaar Read Document API",
+      "description": "Verifies Aadhaar card, detects spoofing, and performs OCR.",
+      "endpoint": "POST /v1/read_document",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/read_document \\\n-H 'Authorization: Bearer <Token>' \\\n-F image=@image.jpg \\\n-F app_id=app_id \\\n-F doc_type=1 \\\n-F journey=na \\\n-F referenceId=123456 \\\n-F is_back=0 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Image of Aadhaar card"},
+        {"Param": "doc_type", "M/O": "M", "Description": "1 - Aadhaar"},
+        {"Param": "is_back", "M/O": "M", "Description": "0 - Front, 1 - Back"},
+        {"Param": "journey", "M/O": "M", "Description": "na - Non-aadhaar, ea - E-aadhaar"}
+      ],
+      "outputs": {
+        "result": [
+          {
+            "details": {
+              "aadhaar": {"value": "xxxx", "conf": 0},
+              "name": {"value": "Name", "conf": 0},
+              "dob": {"value": "DD-MM-YYYY", "conf": 0}
+            },
+            "type": "aadhaar_front_bottom"
+          }
+        ],
+        "status": "success",
+        "statusCode": "200"
+      }
+    },
+    {
+      "title": "PAN Read Document API",
+      "description": "Verifies PAN card, detects spoofing, and performs OCR.",
+      "endpoint": "POST /v1/read_document",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/read_document \\\n-H 'Authorization: Bearer <Token>' \\\n-F image=@image.jpg \\\n-F app_id=app_id \\\n-F doc_type=2 \\\n-F journey=na \\\n-F referenceId=123456 \\\n-F is_back=0 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Image of PAN card"},
+        {"Param": "doc_type", "M/O": "M", "Description": "2 - PAN"},
+        {"Param": "is_back", "M/O": "M", "Description": "0 - Front (PAN usually front only)"}
+      ],
+      "outputs": {
+        "result": [
+          {
+            "details": {
+              "pan_no": {"value": "ABCDE1234F", "conf": 0},
+              "name": {"value": "Name", "conf": 0},
+              "date": {"value": "DD-MM-YYYY", "conf": 0}
+            },
+            "type": "pan"
+          }
+        ],
+        "status": "success",
+        "statusCode": "200"
+      }
+    },
+    {
+      "title": "Passport Read Document API",
+      "description": "Verifies Passport, detects spoofing, and performs OCR.",
+      "endpoint": "POST /v1/read_document",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/read_document \\\n-H 'Authorization: Bearer <Token>' \\\n-F image=@image.jpg \\\n-F app_id=app_id \\\n-F doc_type=3 \\\n-F journey=na \\\n-F referenceId=123456 \\\n-F is_back=0 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Image of Passport"},
+        {"Param": "doc_type", "M/O": "M", "Description": "3 - Passport"},
+        {"Param": "is_back", "M/O": "M", "Description": "0 - Front, 1 - Back"}
+      ],
+      "outputs": {
+        "result": [
+          {
+            "details": {
+              "passport_num": {"value": "A1234567", "conf": 0},
+              "surname": {"value": "Surname", "conf": 0},
+              "given_name": {"value": "Given Name", "conf": 0}
+            },
+            "type": "passport_front"
+          }
+        ],
+        "status": "success",
+        "statusCode": "200"
+      }
+    },
+    {
+      "title": "Voter Read Document API",
+      "description": "Verifies Voter ID, detects spoofing, and performs OCR.",
+      "endpoint": "POST /v1/read_document",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/read_document \\\n-H 'Authorization: Bearer <Token>' \\\n-F image=@image.jpg \\\n-F app_id=dkyc \\\n-F doc_type=4 \\\n-F journey=na \\\n-F referenceId=123456 \\\n-F is_back=0 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Image of Voter ID"},
+        {"Param": "doc_type", "M/O": "M", "Description": "4 - Voter ID"},
+        {"Param": "is_back", "M/O": "M", "Description": "0 - Front, 1 - Back"}
+      ],
+      "outputs": {
+        "result": [
+          {
+            "details": {
+              "voterid": {"value": "ABC1234567", "conf": 0},
+              "name": {"value": "Name", "conf": 0},
+              "age": {"value": "Age", "conf": 0}
+            },
+            "type": "voterid_front"
+          }
+        ],
+        "status": "success",
+        "statusCode": "200"
+      }
+    },
+    {
+      "title": "Driving Licence Read Document API",
+      "description": "Verifies Driving License, detects spoofing, and performs OCR.",
+      "endpoint": "POST /v1/read_document",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/read_document \\\n-H 'Authorization: Bearer <Token>' \\\n-F image=@image.jpg \\\n-F app_id=dkyc \\\n-F doc_type=5 \\\n-F journey=na \\\n-F referenceId=123456 \\\n-F is_back=0 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Image of Driving License"},
+        {"Param": "doc_type", "M/O": "M", "Description": "5 - Driving License"},
+        {"Param": "is_back", "M/O": "M", "Description": "0 - Front, 1 - Back"}
+      ],
+      "outputs": {
+        "result": [
+          {
+            "details": {
+              "driving_licence_no": {"value": "DL12345", "conf": 0},
+              "name": {"value": "Name", "conf": 0},
+              "dob": {"value": "DD-MM-YYYY", "conf": 0}
+            },
+            "type": "driving_licence_front"
+          }
+        ],
+        "status": "success",
+        "statusCode": "200"
+      }
+    },
+    {
+      "title": "FaceMatch API",
+      "description": "Determines if a customer image matches the document image.",
+      "endpoint": "POST /v1/face_match",
+      "source": "Manappuram API Spec",
+      "curl": "curl -X POST {{URL}}/v1/face_match \\\n-H 'Authorization: Bearer <auth token>' \\\n-F image=@1stimage.jpg \\\n-F image2=@2ndimage.jpg \\\n-F app_id=dkyc \\\n-F referenceId=123456 \\\n-F match_type=1 \\\n-F app_type=A",
+      "inputs": [
+        {"Param": "image", "M/O": "M", "Description": "Original face image"},
+        {"Param": "image2", "M/O": "O", "Description": "Comparison face image"},
+        {"Param": "match_type", "M/O": "M", "Description": "0: Customer-Doc, 1: Agent-Customer, 2: Agent-Agent"}
+      ],
+      "outputs": {
+        "result": {
+          "conf": "90",
+          "match": "yes",
+          "match-score": "92",
+          "to-be-reviewed": "no"
+        },
+        "status": "success",
+        "statusCode": "200"
+      }
+    }
+  ]

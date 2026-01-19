@@ -1,0 +1,79 @@
+[
+    {
+      "title": "AuthToken API",
+      "description": "Exchange authorization code for access token.",
+      "endpoint": "POST /v1/digilocker/access_token",
+      "source": "DigiLocker Doc",
+      "curl": "curl --location --request POST '{{url}}/v1/digilocker/access_token' \\\n--form 'code=\"YOUR_AUTHORIZATION_CODE\"' \\\n--form 'grant_type=\"authorization_code\"' \\\n--form 'client_secret=\"YOUR_CLIENT_SECRET\"' \\\n--form 'client_id=\"YOUR_CLIENT_ID\"' \\\n--form 'code_verifier=\"YOUR_CODE_VERIFIER\"' \\\n--form 'app_id=\"dkyc\"' \\\n--form 'redirect_uri=\"YOUR_REDIRECT_URI\"' \\\n--form 'referenceId=\"test\"'",
+      "inputs": [
+        {"Param": "code", "M/O": "M", "Description": "Auth Code"},
+        {"Param": "code_verifier", "M/O": "M", "Description": "PKCE String"},
+        {"Param": "grant_type", "M/O": "M", "Description": "Must be 'authorization_code'"}
+      ],
+      "outputs": {
+        "data": {
+          "access_token": "44c102d3...",
+          "expires_in": 3600,
+          "token_type": "Bearer"
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Get User Profile Details API",
+      "description": "Retrieves DigiLocker user profile (Name, DOB).",
+      "endpoint": "POST /v1/digilocker/account_details",
+      "source": "DigiLocker Doc",
+      "curl": "curl --location --request POST '{{url}}/v1/digilocker/account_details' \\\n--form 'app_id=\"dkyc\"' \\\n--form 'referenceId=\"test\"' \\\n--form 'access_token=\"YOUR_ACCESS_TOKEN\"'",
+      "inputs": [
+        {"Param": "access_token", "M/O": "M", "Description": "Token from AuthToken API"},
+        {"Param": "app_id", "M/O": "M", "Description": "Application ID"}
+      ],
+      "outputs": {
+        "data": {
+          "digilockerid": "4ebf9e9d...",
+          "name": "Bodige Shiva Teja",
+          "dob": "07091998",
+          "gender": "M"
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Get Documents List API",
+      "description": "Retrieves list of stored documents.",
+      "endpoint": "POST /v1/digilocker/get_documents",
+      "source": "DigiLocker Doc",
+      "curl": "curl --location --request POST '{{url}}/v1/digilocker/get_documents' \\\n--form 'app_id=\"dkyc\"' \\\n--form 'referenceId=\"test\"' \\\n--form 'access_token=\"YOUR_ACCESS_TOKEN\"'",
+      "inputs": [
+        {"Param": "access_token", "M/O": "M", "Description": "Token from AuthToken API"}
+      ],
+      "outputs": {
+        "data": {
+          "items": [
+            {"name": "Aadhaar Card", "doctype": "ADHAR", "uri": "in.gov.uidai..."},
+            {"name": "PAN Verification Record", "doctype": "PANCR", "uri": "in.gov.pan..."}
+          ]
+        },
+        "status": "success",
+        "statusCode": 200
+      }
+    },
+    {
+      "title": "Get Document Data API",
+      "description": "Fetches actual data (XML/JSON) for a specific document.",
+      "endpoint": "POST /v1/digilocker/get_document_data",
+      "source": "DigiLocker Doc",
+      "curl": "curl --location --request POST '{{url}}/v1/digilocker/get_document_data' \\\n--form 'app_id=\"dkyc\"' \\\n--form 'referenceId=\"test\"' \\\n--form 'access_token=\"YOUR_ACCESS_TOKEN\"' \\\n--form 'uri=\"DOCUMENT_URI\"'",
+      "inputs": [
+        {"Param": "uri", "M/O": "M", "Description": "Document URI from Get Documents List"}
+      ],
+      "outputs": {
+        "data": "{\"Certificate\": {\"CertificateData\": ...}}",
+        "status": "success",
+        "statusCode": 200
+      }
+    }
+  ]
