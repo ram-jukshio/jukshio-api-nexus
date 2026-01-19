@@ -1,0 +1,25 @@
+[theme]
+# Jukshio Brand Colors
+primaryColor = "#e91e63"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+[client]
+# Hides the "Manage App" and developer options for viewers
+toolbarMode = "viewer"
+# Hides full traceback errors in the UI (better for production/security)
+showErrorDetails = false
+
+[server]
+# Standard settings for cloud deployment
+headless = true
+enableCORS = false
+enableXsrfProtection = false
+fileWatcherType = "none"
+
+[browser]
+# Ensures the app knows its public URL (helpful for some internal logic)
+serverAddress = "api-nexus.streamlit.app"
+serverPort = 80
