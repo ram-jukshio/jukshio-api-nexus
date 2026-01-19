@@ -2,13 +2,14 @@ import streamlit as st
 import pandas as pd
 import json
 import os
+from datetime import datetime
 
 # ==========================================
 # 1. SETUP & CONFIGURATION
 # ==========================================
 st.set_page_config(page_title="Digital API Library", layout="wide", page_icon="🗂️")
 
-# Ensure this mapping matches your file names
+# Ensure this mapping matches your file names in the 'data' folder
 DATA_SOURCES = {
     "Defraud & Group Analysis": "data/defrauds.json",
     "Jukshio DKYC (Manappuram)": "data/dkyc.json",
@@ -72,3 +73,18 @@ else:
                     st.json(api["outputs"])
             
             st.divider()
+
+# ==========================================
+# 5. FOOTER
+# ==========================================
+st.markdown("---")
+current_year = datetime.now().year
+footer_html = f"""
+<div style='text-align: center; color: #666;'>
+    <p>
+        Designed and Developed by <a href='mailto:ramarao.bikkina@jukshio.com' style='text-decoration: none; color: #e91e63;'>Ram Bikkina</a> 
+        | &copy; {current_year} <a href='http://jukshio.com/' style='text-decoration: none; color: #e91e63;'>Jukshio Org</a>
+    </p>
+</div>
+"""
+st.markdown(footer_html, unsafe_allow_html=True)
